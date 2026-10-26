@@ -1,0 +1,43 @@
+### Verifica a saúde da API
+GET http://localhost:3001/saude
+Accept: application/json
+
+###
+
+### Pergunta que é respondida pelo documento
+POST http://localhost:3001/perguntar
+Content-Type: application/json
+
+{
+  "pergunta": "Qual é o principal objetivo discutido na introdução do artigo?"
+}
+
+###
+
+### Pergunta NÃO respondida pelo documento
+POST http://localhost:3001/perguntar
+Content-Type: application/json
+
+{
+  "pergunta": "Qual é a receita para fazer um bolo de chocolate?"
+}
+
+###
+
+### Recusa por pergunta vazia (400)
+POST http://localhost:3001/perguntar
+Content-Type: application/json
+
+{
+  "pergunta": ""
+}
+
+###
+
+### Recusa por pergunta longa demais (400)
+POST http://localhost:3001/perguntar
+Content-Type: application/json
+
+{
+  "pergunta": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed blandit diam, ullamcorper dictum lectus. Aenean egestas erat tellus, finibus sodales turpis vestibulum eu. Suspendisse sagittis efficitur lorem, sit amet cursus nulla sodales sed. Proin sed tristique lectus. Aenean vel orci vel urna iaculis viverra a rhoncus purus. Morbi hendrerit pulvinar eros at scelerisque. Vivamus a nibh in ante tempor tristique at volutpat nibh. Praesent a elit quam. Nulla laoreet nec nisl quis efficitur."
+}
