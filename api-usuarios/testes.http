@@ -1,0 +1,52 @@
+@baseUrl = http://localhost:3000/api/usuarios
+
+### 1. Cadastrar usuário (Rota aberta)
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "nome": "Samuel",
+  "sobrenome": "Magalhães",
+  "email": "samuel@exemplo.com",
+  "usuario": "samuel",
+  "senha": "MinhaSenhaForte123"
+}
+
+### 2. Fazer login e capturar o token automaticamente (Rota aberta)
+# @name login
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "usuario": "samuel",
+  "senha": "MinhaSenhaForte123"
+}
+
+### Variável preenchida automaticamente com o token retornado no passo 2
+@token = {{login.response.body.dados.token}}
+
+### 3. Listar todos os usuários SEM token (Deve retornar 401 Não Autorizado)
+GET {{baseUrl}}
+
+### 4. Listar todos os usuários COM token (Rota fechada)
+GET {{baseUrl}}
+Authorization: Bearer {{token}}
+
+### 5. Buscar usuário por ID (Rota fechada)
+GET {{baseUrl}}/2
+Authorization: Bearer {{token}}
+
+### 6. Alterar usuário por ID (Rota fechada)
+PUT {{baseUrl}}/2
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nome": "Samuel",
+  "sobrenome": "Magalhães",
+  "ativo": true
+}
+
+### 7. Excluir usuário por ID (Rota fechada)
+DELETE {{baseUrl}}/2
+Authorization: Bearer {{token}}
